@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <title>Survey Results</title>
+        <link href="https://fonts.googleapis.com/css?family=Teko&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Red+Hat+Display&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+  
+    </head>
+    <body>
+<!-- BEGIN OF NAVIGATION CONSTANT AREA-->         
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark mb-5">
+    <a class="navbar-brand" href="#">Everett</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+         
+        </li>
+        <li class="nav-item">
+          
+        </li>
+        <li class="nav-item">
+         
+        </li>
+      </ul>
+
+    </div>
+  </nav>
+  
+    
+    <div class="container">
+      <div class="lead pt-5"></div>
+<!-- END OF NAVIGATION CONSTANT AREA-->   
+
+<!--UPDATE USER INFO-->
+
+ <!--LEFT SIDE TOP-->     
+ <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+       
+
+        </div>
+       
+      </div>
+    </div>
+
+<!--RIGHT SIDE TOP-->
+    <div class="col-md-6">
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          
+          
+          <div class="mb-1 text-muted"></div>
+          
+          
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+
+ <!--CENTER -->     
+    <div class="row mb-2">
+      <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden shadow-sm ">
+          <div class="col p-4 ">
+            <strong class="d-inline-block mb-2 text-primary">Your Info:</strong>
+ <!--BEGIN FORM-->           
+            <form id="form_validate" action="/submit" method="POST">
+            
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                        <label for="location">First Name:  </label>
+                    
+                    <%=results.first_name%>
+                    
+                  </div>
+                  <div class="form-group col-md-6">
+                        <label for="location">Last Name:  </label>
+                    <%=results.last_name%>
+                  </div>
+                </div>
+                <div class="form-group">
+                        <label for="location">Email:  </label>
+                  <%=results.email%>
+                </div>
+                <div class="form-group">
+                        <label for="location">Dojo Location:  </label>
+                        <%=results.location%>
+                      </div>
+                
+                      <div class="form-group">
+                            <label for="language">Favorite Language:  </label>
+                            <%=results.language%>
+                          </div>
+                
+                
+                          <a href="/form"><button id="btn btn-primary">Go Back</button></a>
+              </form>
+
+<!--END FORM-->              
+          </div>
+          <div class="col-auto d-none d-lg-block">
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <script type="text/javascript">
+		$.validator.setDefaults( {
+			submitHandler: function () {
+				alert( "submitted!" );
+			}
+		} );
+
+		$( document ).ready( function () {
+			$( "form_validate" ).validate( {
+				rules: {
+					first_name: "required",
+					last_name: "required",
+
+					},
+
+				messages: {
+					first_name: "Please enter your first name",
+					last_name: "Please enter your last name",
+
+					},
+
+					email: "Please enter a valid email address",
+				
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+				}
+			} );
+
+			$( "#form_validate" ).validate( {
+				rules: {
+					first_name: "required",
+					last_name: "required",
+		
+					email: {
+						required: true,
+						email: true
+					},
+					agree1: "required"
+				},
+				messages: {
+					first_name: "Please enter your first name",
+					last_name: "Please enter your last name",
+					
+					email: "Please enter a valid email address",
+					
+				},
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					// Add `has-feedback` class to the parent div.form-group
+					// in order to add icons to inputs
+					element.parents( ".col-sm-5" ).addClass( "has-feedback" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !element.next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-remove form-control-feedback'></span>" ).insertAfter( element );
+					}
+				},
+				success: function ( label, element ) {
+					// Add the span element, if doesn't exists, and apply the icon classes to it.
+					if ( !$( element ).next( "span" )[ 0 ] ) {
+						$( "<span class='glyphicon glyphicon-ok form-control-feedback'></span>" ).insertAfter( $( element ) );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+					$( element ).next( "span" ).addClass( "glyphicon-remove" ).removeClass( "glyphicon-ok" );
+				},
+				unhighlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+					$( element ).next( "span" ).addClass( "glyphicon-ok" ).removeClass( "glyphicon-remove" );
+				}
+			} );
+		} );
+  </script>
+  <script type="text/javascript"> bootstrapValidate(
+    '#email_validate',
+    'email:Enter a valid E-Mail Address!'
+ ); </script>
+
+<script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js" ></script>  
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
